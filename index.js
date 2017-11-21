@@ -8,6 +8,25 @@ const jsonParser = bodyParser.json();
 const {PORT, CLIENT_ORIGIN} = require('./config');
 const {dbConnect} = require('./db-mongoose');
 // const {dbConnect} = require('./db-knex');
+const cheeses = [
+    "Bath Blue",
+    "Barkham Blue",
+    "Buxton Blue",
+    "Cheshire Blue",
+    "Devon Blue",
+    "Dorset Blue Vinney",
+    "Dovedale",
+    "Exmoor Blue",
+    "Harbourne Blue",
+    "Lanark Blue",
+    "Lymeswold",
+    "Oxford Blue",
+    "Shropshire Blue",
+    "Stichelton",
+    "Stilton",
+    "Blue Wensleydale",
+    "Yorkshire Blue"
+]
 
 const app = express();
 
@@ -23,29 +42,14 @@ app.use(
     })
 );
 
-app.get('/api/cheeses', jsonParser, (req, res) => {
+app.get('/api/cheeses', (req, res) => {
     
-    const cheeses = [
-        "Bath Blue",
-        "Barkham Blue",
-        "Buxton Blue",
-        "Cheshire Blue",
-        "Devon Blue",
-        "Dorset Blue Vinney",
-        "Dovedale",
-        "Exmoor Blue",
-        "Harbourne Blue",
-        "Lanark Blue",
-        "Lymeswold",
-        "Oxford Blue",
-        "Shropshire Blue",
-        "Stichelton",
-        "Stilton",
-        "Blue Wensleydale",
-        "Yorkshire Blue"
-    ]
-     
     console.log('working')
+    res.json(cheeses);
+})
+
+app.post('/api/cheeses', jsonParser, (req, res) => {
+    cheeses.push(req.body.cheese);
     res.json(cheeses);
 })
 
